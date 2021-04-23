@@ -8,9 +8,10 @@
 Console::Console()
 {
     Console::resetCommand();
-    commandMap.insert(make_pair("quit", quit));
-    commandMap.insert(make_pair("addHop", addHop));
-    commandMap.insert(make_pair("addGrain", addGrain));
+    commandMap.insert(make_pair("quit", Commands::quit));
+    commandMap.insert(make_pair("addHop", Commands::addHop));
+    commandMap.insert(make_pair("addGrain", Commands::addGrain));
+    commandMap.insert(make_pair("help", Commands::help));
 
     cout << "Insert 'help' command for the list of possible commands." << endl;
 }
@@ -56,21 +57,27 @@ bool Console::parseCommand()
 
     try
     {
-        if (commandMap.at(command) == quit)
+        if (commandMap.at(command) == Commands::quit)
         {
-            selectedCommand = quit;
+            selectedCommand = Commands::quit;
             isValid = true;
         }
 
-        if (commandMap.at(command) == addGrain)
+        if (commandMap.at(command) == Commands::addGrain)
         {
-            selectedCommand = addGrain;
+            selectedCommand = Commands::addGrain;
             isValid = true;
         }
 
-        if (commandMap.at(command) == addHop)
+        if (commandMap.at(command) == Commands::addHop)
         {
-            selectedCommand = addHop;
+            selectedCommand = Commands::addHop;
+            isValid = true;
+        }
+
+        if (commandMap.at(command) == Commands::help)
+        {
+            selectedCommand = Commands::help;
             isValid = true;
         }
     }
@@ -90,18 +97,29 @@ void Console::resetCommand()
 
 string Console::stringProcess(string aString)
 {
-    int pos = aString.find(' ');
-    string subString = aString.substr(0, pos);
+    int last = 0;
+    int next = 0;
+    char delimiter = ' ';
+    //string subString = aString.substr(0, pos);
+
+    while ((next = aString.find(delimiter, last)) != string::npos)
+    {
+        //parsedCommand.insert(pos, aString.substr(last, next-last));
+        parsedCommand.insert(parsedCommand.begin(),aString.substr(last, next-last));
+        last = next + 1;
+    }
 
     return subString;
 }
 
 void Console::help()
 {
-    cout << "Command list:" << endl;
+    cout << "***********************************" << endl;
+    cout << "[THIS IS THE COMAND LIST]" << endl;
     cout << "addGrain - Add a grain to the recipe" << endl;
     cout << "addHop - Add a hop to the recipe" << endl;
     cout << "quit - Quit the program" << endl;
+    cout << "***********************************" << endl;
 }
 
 Commands Console::getSelectedCommand() const
@@ -112,6 +130,16 @@ Commands Console::getSelectedCommand() const
 void Console::setSelectedCommand(Commands selectedCommand)
 {
     Console::selectedCommand = selectedCommand;
+}
+
+const vector<string> &Console::getParsedCommand() const
+{
+    return parsedCommand;
+}
+
+void Console::setParsedCommand(const vector<string> &parsedCommand)
+{
+    Console::parsedCommand = parsedCommand;
 }
 
 

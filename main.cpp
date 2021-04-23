@@ -17,10 +17,15 @@ int main()
 
         switch (console->getSelectedCommand())
         {
-            case quit:
+            case Commands::quit:
                 delete console;
                 cout << "Beer Calculator is quitting" << endl;
                 exit(0);
+                break;
+            case Commands::help:
+                console->help();
+                break;
+
         }
     }
 

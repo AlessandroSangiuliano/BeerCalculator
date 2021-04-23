@@ -7,13 +7,15 @@
 
 #include <string>
 #include <map>
+#include <vector>
 
 using namespace std;
 
 enum Commands  {
         quit,
         addHop,
-        addGrain
+        addGrain,
+        help
 };
 
 class Console
@@ -29,13 +31,13 @@ private:
     string command;
     Commands selectedCommand;
     map<string, Commands> commandMap;
+    vector<string> parsedCommand;
 
 public:
     const string &getCommand() const;
 
     void setCommand(const string &command);
 
-public:
     Console();
 
     virtual ~Console();
@@ -53,6 +55,10 @@ public:
     Commands getSelectedCommand() const;
 
     void setSelectedCommand(Commands selectedCommand);
+
+    const vector<string> &getParsedCommand() const;
+
+    void setParsedCommand(const vector<string> &parsedCommand);
 };
 
 
