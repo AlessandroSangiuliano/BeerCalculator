@@ -12,6 +12,7 @@
 using namespace std;
 
 enum Commands  {
+        none,
         quit,
         addHop,
         addGrain,
@@ -59,6 +60,8 @@ public:
     const vector<string> &getParsedCommand() const;
 
     void setParsedCommand(const vector<string> &parsedCommand);
+
+    void descripion();
 };
 
 

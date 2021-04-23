@@ -25,6 +25,8 @@ int main()
             case Commands::help:
                 console->help();
                 break;
+            default:
+                break;
 
         }
     }

@@ -12,6 +12,7 @@ Console::Console()
     commandMap.insert(make_pair("addHop", Commands::addHop));
     commandMap.insert(make_pair("addGrain", Commands::addGrain));
     commandMap.insert(make_pair("help", Commands::help));
+    commandMap.insert(make_pair("none", Commands::none));
 
     cout << "Insert 'help' command for the list of possible commands." << endl;
 }
@@ -84,6 +85,7 @@ bool Console::parseCommand()
     catch (const std::out_of_range& oor)
     {
         cout << "Command '" << command << "' doesn't exist!" << endl;
+        Console::resetCommand();
     }
 
     return isValid;
@@ -93,23 +95,26 @@ void Console::resetCommand()
 {
     commandLine.clear();
     commandLine = "none";
+    selectedCommand = Commands::none;
+    command.clear();
+    command = "none";
+    parsedCommand.clear();
 }
 
 string Console::stringProcess(string aString)
 {
     int last = 0;
     int next = 0;
-    char delimiter = ' ';
-    //string subString = aString.substr(0, pos);
+    string delimiter = " ";
 
-    while ((next = aString.find(delimiter, last)) != string::npos)
+    do
     {
-        //parsedCommand.insert(pos, aString.substr(last, next-last));
-        parsedCommand.insert(parsedCommand.begin(),aString.substr(last, next-last));
+        next = aString.find(delimiter, last);
+        parsedCommand.push_back(aString.substr(last, next - last));
         last = next + 1;
-    }
+    }while (next != string::npos);
 
-    return subString;
+    return parsedCommand.at(0);
 }
 
 void Console::help()
@@ -140,6 +145,20 @@ const vector<string> &Console::getParsedCommand() const
 void Console::setParsedCommand(const vector<string> &parsedCommand)
 {
     Console::parsedCommand = parsedCommand;
+}
+
+void Console::descripion()
+{
+    int size = parsedCommand.size();
+
+    cout << "Parsed command: ";
+
+    for (int i = 0; i < size ; ++i)
+    {
+        cout << parsedCommand.at(i) << " ";
+    }
+
+    cout << endl;
 }
 
 
