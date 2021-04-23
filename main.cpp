@@ -13,7 +13,15 @@ int main()
 
     while (console->readCommand())
     {
-        cout << "Command: " << console->getCommand() << endl;
+        console->parseCommand();
+
+        switch (console->getSelectedCommand())
+        {
+            case quit:
+                delete console;
+                cout << "Beer Calculator is quitting" << endl;
+                exit(0);
+        }
     }
 
     delete console;

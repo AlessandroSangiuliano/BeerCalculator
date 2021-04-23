@@ -11,7 +11,9 @@
 using namespace std;
 
 enum Commands  {
-        quit
+        quit,
+        addHop,
+        addGrain
 };
 
 class Console
@@ -23,9 +25,10 @@ private:
     double utilization;
     int densityCorrection;*/
 
+    string commandLine;
     string command;
-    Commands commandList;
-    map<const char *, Commands> commandMap;
+    Commands selectedCommand;
+    map<string, Commands> commandMap;
 
 public:
     const string &getCommand() const;
@@ -42,6 +45,14 @@ public:
     void resetCommand();
 
     bool parseCommand();
+
+    string stringProcess(string aString);
+
+    void help();
+
+    Commands getSelectedCommand() const;
+
+    void setSelectedCommand(Commands selectedCommand);
 };
 
 
