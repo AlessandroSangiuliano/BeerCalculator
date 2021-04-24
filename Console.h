@@ -16,18 +16,13 @@ enum Commands  {
         quit,
         addHop,
         addGrain,
-        help
+        help,
+        newRecipe
 };
 
 class Console
 {
 private:
-    /*int correctionFactor;
-    double waterVolume;
-    double alphaAcid;
-    double utilization;
-    int densityCorrection;*/
-
     string commandLine;
     string command;
     Commands selectedCommand;

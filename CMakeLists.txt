@@ -6,4 +6,4 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(BeerCalculator
         main.cpp
         Console.cpp
-        Console.h)
+        Console.h Recipe.cpp Recipe.h cmake-build-release/Hop.cpp cmake-build-release/Hop.h)

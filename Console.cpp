@@ -13,6 +13,7 @@ Console::Console()
     commandMap.insert(make_pair("addGrain", Commands::addGrain));
     commandMap.insert(make_pair("help", Commands::help));
     commandMap.insert(make_pair("none", Commands::none));
+    commandMap.insert(make_pair("newRecipe", Commands::newRecipe));
 
     cout << "Insert 'help' command for the list of possible commands." << endl;
 }
@@ -81,6 +82,12 @@ bool Console::parseCommand()
             selectedCommand = Commands::help;
             isValid = true;
         }
+
+        if (commandMap.at(command) == Commands::newRecipe)
+        {
+            selectedCommand = Commands::newRecipe;
+            isValid = true;
+        }
     }
     catch (const std::out_of_range& oor)
     {
@@ -121,6 +128,8 @@ void Console::help()
 {
     cout << "***********************************" << endl;
     cout << "[THIS IS THE COMAND LIST]" << endl;
+    cout << "newRecipe - Build a new recipe! - Syntax: newRecipe [beerName] [#hopQuantity (optional)] [#hopAlphaAcid (optional)] [#hopUtilization (optional)] "
+            "[#density (optional)] [#waterVolume (optional)]"  << endl;
     cout << "addGrain - Add a grain to the recipe" << endl;
     cout << "addHop - Add a hop to the recipe" << endl;
     cout << "quit - Quit the program" << endl;
