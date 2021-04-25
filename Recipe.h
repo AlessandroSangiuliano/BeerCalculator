@@ -7,6 +7,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include "Hop.h"
 
 using namespace std;
 
@@ -16,10 +18,9 @@ private:
     int correctionFactor;
     double waterVolume;
     int density;
-    int densityCorrection;
     string beerName;
-    int referringDensity;
-    int correctonFactor;
+    vector<Hop> hops;
+    float ibu;
 public:
     int getCorrectionFactor() const;
 
@@ -29,17 +30,11 @@ public:
 
     void setWaterVolume(double waterVolume);
 
-    int getDensityCorrection() const;
-
-    void setDensityCorrection(int densityCorrection);
-
     const string &getBeerName() const;
 
     void setBeerName(const string &beerName);
 
     int getReferringDensity() const;
-
-    int getCorrectonFactor() const;
 
     int getDensity() const;
 
@@ -47,9 +42,27 @@ public:
 
     explicit Recipe(const string &beerName);
 
+    explicit Recipe(const string &beerName, int aDensity, int aWaterVolume);
+
     virtual ~Recipe();
 
     void description();
+
+    const vector<Hop> &getHops() const;
+
+    void setHops(const vector<Hop> &hops);
+
+    void buildHopFromCommand(vector<string> aParsedCommand);
+
+    float calculateIBU();
+
+    float getIbu() const;
+
+    void setIbu(float ibu);
+
+    void removeHop();
+
+    void printHopsIbu();
 
 };
 

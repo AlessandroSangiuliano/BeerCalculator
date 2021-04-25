@@ -14,12 +14,18 @@ class Hop
 {
 private:
     string hopName;
-    double quantity;
-    double alphaAcid;
+    float quantity;
+    float alphaAcid;
     int boilTime;
-    double utilization;
+    float utilization;
+    float ibuContribution;
+    int referringDensity;
 public:
-    Hop(const string &hopName, double quantity, double alphaAcid, int boilTime, double utilization);
+    Hop();
+
+    Hop(const string &hopName, float quantity, float alphaAcid, float utilization, int boilTime);
+
+    Hop(Hop *pHop);
 
     virtual ~Hop();
 
@@ -27,21 +33,33 @@ public:
 
     void setHopName(const string &hopName);
 
-    double getQuantity() const;
+    float getQuantity() const;
 
-    void setQuantity(double quantity);
+    void setQuantity(float quantity);
 
-    double getAlphaAcid() const;
+    float getAlphaAcid() const;
 
-    void setAlphaAcid(double alphaAcid);
+    void setAlphaAcid(float alphaAcid);
 
     int getBoilTime() const;
 
     void setBoilTime(int boilTime);
 
-    double getUtilization() const;
+    float getUtilization() const;
 
-    void setUtilization(double utilization);
+    void setUtilization(float utilization);
+
+    void description();
+
+    float getIbuContribution() const;
+
+    void setIbuContribution(float ibuContribution);
+
+    float calculateIbuContribution(int correctionFactor, int density, int waterVolume);
+
+    int getReferringDensity() const;
+
+    void setReferringDensity(int referringDensity);
 };
 
 

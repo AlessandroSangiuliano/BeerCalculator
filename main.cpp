@@ -2,6 +2,7 @@
 #include "Console.h"
 #include "Recipe.h"
 
+
 using namespace std;
 
 int main()
@@ -30,25 +31,52 @@ int main()
                 break;
             case Commands::newRecipe:
                 cout << "Building a new Recipe!" << endl;
-                if (console->getParsedCommand().size() == 2)
-                    recipe = new Recipe(console->getParsedCommand().at(1));
 
                 if (console->getParsedCommand().size() == 2)
+                    recipe = new Recipe(console->getParsedCommand().at(1));
+                else if (console->getParsedCommand().size() == 4)
                 {
-                    vector<string> commandAndarguments = console->getParsedCommand();
-                    string beerName = console->getParsedCommand().at(1);
-                    double hopQuantity = stod(commandAndarguments.at(2));
-                    double hopAlphaAcid = stod(commandAndarguments.at(3));
-                    double utilization = stod(commandAndarguments.at(4));
-                    int density = stod(commandAndarguments.at(5));
-                    double waterVolume = stod(commandAndarguments.at(6));
-                    recipe = new Recipe(beerName, hopQuantity, hopAlphaAcid, utilization, density, waterVolume);
+                    int density = stoi(console->getParsedCommand().at(2));
+                    int waterVolume = stoi(console->getParsedCommand().at(3));
+                    recipe = new Recipe(console->getParsedCommand().at(1), density, waterVolume);
                 }
+                else
+                {
+                    cout << "Syntax error building a new recipe. Use 'help' command to see the syntax!" << endl;
+                    continue;
+                }
+
                 recipe->description();
+                break;
+            case Commands::addHop:
+
+                if (!recipe)
+                {
+                    cout << "You need to build a new Recipe before adding a Hop. Use the 'help' command to see how to do.";
+                    continue;
+                }
+
+                if (console->getParsedCommand().size() != 6)
+                {
+                    cout << "Syntaz error. Use the 'help' command to see the syntax" << endl;
+                    continue;
+                }
+
+                recipe->buildHopFromCommand(console->getParsedCommand());
+                break;
+            case Commands::calculateIbu:
+                recipe->setIbu(0);
+                recipe->calculateIBU();
+                recipe->description();
+                break;
+            case Commands::removeHop:
+                recipe->removeHop();
+                break;
+            case Commands::printHopsIbu:
+                recipe->printHopsIbu();
                 break;
             default:
                 break;
-
         }
     }
 

@@ -17,7 +17,10 @@ enum Commands  {
         addHop,
         addGrain,
         help,
-        newRecipe
+        newRecipe,
+        calculateIbu,
+        removeHop,
+        printHopsIbu
 };
 
 class Console
