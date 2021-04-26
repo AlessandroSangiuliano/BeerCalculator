@@ -136,6 +136,7 @@ void Recipe::printHopsIbu()
     for (int i = 0; i < size; ++i)
     {
         cout << "Name: " << hops.at(i).getHopName() <<
+        "; Quantity: " << hops.at(i).getQuantity() <<
         "; IBU: " << hops.at(i).getIbuContribution() <<
         "; Boil Time: " << hops.at(i).getBoilTime() << endl;
     }
